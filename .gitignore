@@ -2,4 +2,4 @@
 /vendor/
 /database/*.db
 /database/*.sqlite
-test.db
+*.sqlite

@@ -1,6 +1,14 @@
 {
     "name": "sushilk/securelite",
     "description": "A lightweight SQLCipher-backed SQLite3 database library for PHP.",
+    "keywords": [
+        "securelite",
+        "sqlite",
+        "sqlcipher",
+        "cipher",
+        "encryption",
+        "encrypted"
+    ],
     "type": "library",
     "license": "MIT",
     "require": {
@@ -8,7 +16,8 @@
         "ext-sqlite3": "*"
     },
     "require-dev": {
-        "laravel/pint": "^1.32"
+        "laravel/pint": "^1.32",
+        "phpstan/phpstan": "^2.2"
     },
     "autoload": {
         "psr-4": {
@@ -21,6 +30,12 @@
             "email": "sushilkumbhar77@gmail.com"
         }
     ],
+    "scripts": {
+        "tests": [
+            "@php examples/index.php",
+            "cat database.sqlite"
+        ]
+    },
     "minimum-stability": "dev",
     "prefer-stable": true
 }

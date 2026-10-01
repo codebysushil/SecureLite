@@ -8,9 +8,7 @@ use RuntimeException;
 
 final class DatabasePermissions
 {
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     public static function secure(string $database): void
     {
@@ -19,7 +17,7 @@ final class DatabasePermissions
 
         self::secureDirectory($directory);
 
-        if (is_file($database) && !chmod($database, 0600)) {
+        if (is_file($database) && ! chmod($database, 0600)) {
             throw new RuntimeException(
                 "Unable to secure database file: {$database}"
             );
@@ -30,13 +28,13 @@ final class DatabasePermissions
 
     private static function secureDirectory(string $directory): void
     {
-        if (!is_dir($directory) && !mkdir($directory, 0700, true)) {
+        if (! is_dir($directory) && ! mkdir($directory, 0700, true)) {
             throw new RuntimeException(
                 "Unable to create database directory: {$directory}"
             );
         }
 
-        if (!chmod($directory, 0700)) {
+        if (! chmod($directory, 0700)) {
             throw new RuntimeException(
                 "Unable to secure database directory: {$directory}"
             );
@@ -54,7 +52,7 @@ final class DatabasePermissions
         ];
 
         foreach ($files as $file) {
-            $path = $directory . DIRECTORY_SEPARATOR . $file;
+            $path = $directory.DIRECTORY_SEPARATOR.$file;
 
             if (is_file($path)) {
                 chmod($path, 0600);

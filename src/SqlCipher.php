@@ -16,7 +16,7 @@ final class SqlCipher
     public function __construct(
         string $library = '/data/data/com.termux/files/usr/lib/libsqlcipher.so'
     ) {
-        if (!is_file($library)) {
+        if (! is_file($library)) {
             throw new RuntimeException(
                 "SQLCipher library not found: {$library}"
             );

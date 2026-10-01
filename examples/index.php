@@ -1,53 +1,15 @@
 <?php
 
-declare(strict_types=1);
+require __DIR__ . '/../vendor/autoload.php';
 
-use SecureLite\Connection;
+use SecureLite\Cipher;
 
-require_once __DIR__ . '/vendor/autoload.php';
+$db = new Cipher('database.sqlite', 'root');
 
-$db = new Connection('test.db', 'root1234');
+$db->exec("CREATE TABLE IF NOT EXISTS users(id INTEGER, name TEXT)");
 
-$db->exec(<<<'SQL'
-    CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        email TEXT NOT NULL UNIQUE,
-        mobile TEXT NOT NULL,
-        city TEXT NOT NULL,
-        created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
-    )
-    SQL);
+$result = $db->query("INSERT INTO users(id, name) VALUES ('1', 'test 1')");
 
-/*
-$user = [
-    'name' => 'sushil',
-    'email' => 'sushil@example.com',
-    'mobile' => '1234567890',
-    'city' => 'bargarh'
-];
+//$data = $result->fetchOne();
 
-$db->transaction(function (Connection $db) use ($user) {
-
-    $stmt = $db->prepare(
-        'INSERT INTO users
-            (name, email, mobile, city)
-         VALUES
-            (:name, :email, :mobile, :city)'
-    );
-
-    $stmt
-        ->bind(':name', $user['name'])
-        ->bind(':email', $user['email'])
-        ->bind(':mobile', $user['mobile'])
-        ->bind(':city', $user['city'])
-        ->execute();
-});
- */
-$res = $db->query('SELECT * FROM users');
-
-$data = $res->fetchArray(SQLITE3_ASSOC);
-
-echo '<pre>';
-print_r($data);
+var_dump($result);

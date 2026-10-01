@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace SecureLite;
 
-use SQLite3;
 use SQLite3Result;
 use SQLite3Stmt;
 
@@ -12,8 +11,7 @@ final class Statement
 {
     public function __construct(
         private readonly SQLite3Stmt $statement,
-    ) {
-    }
+    ) {}
 
     public function bind(
         string|int $parameter,
@@ -42,7 +40,7 @@ final class Statement
     {
         $result = $this->statement->execute();
 
-        if (!$result instanceof SQLite3Result) {
+        if (! $result instanceof SQLite3Result) {
             throw new Exception(
                 'SQL statement execution failed.'
             );

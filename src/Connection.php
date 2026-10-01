@@ -8,7 +8,6 @@ use SQLite3;
 use SQLite3Result;
 use SQLite3Stmt;
 use Throwable;
-use SecureLite\DatabasePermissions;
 
 final class Connection
 {
@@ -29,7 +28,7 @@ final class Connection
 
         $directory = dirname($filename);
 
-        if (!is_dir($directory)) {
+        if (! is_dir($directory)) {
             throw new Exception(
                 "Database directory does not exist: {$directory}"
             );
@@ -48,7 +47,7 @@ final class Connection
          * opening the database and before normal queries.
          */
         $this->connection->exec(
-            'PRAGMA key = ' . $this->quoteKey($key)
+            'PRAGMA key = '.$this->quoteKey($key)
         );
 
         /*
@@ -89,11 +88,11 @@ final class Connection
          * SQLCipher accepts a quoted key.
          * Escape single quotes for SQL.
          */
-        return "'" . str_replace(
+        return "'".str_replace(
             "'",
             "''",
             $key
-        ) . "'";
+        )."'";
     }
 
     private function verify(): void
@@ -103,7 +102,7 @@ final class Connection
                 'SELECT count(*) FROM sqlite_master'
             );
 
-            if (!is_int($result) && !is_numeric($result)) {
+            if (! is_int($result) && ! is_numeric($result)) {
                 throw new Exception(
                     'Unable to verify SQLCipher database.'
                 );
@@ -130,7 +129,7 @@ final class Connection
     {
         $statement = $this->connection->prepare($sql);
 
-        if (!$statement instanceof SQLite3Stmt) {
+        if (! $statement instanceof SQLite3Stmt) {
             throw new Exception(
                 'Unable to prepare SQL statement.'
             );
@@ -163,7 +162,7 @@ final class Connection
 
     public function commit(): void
     {
-        if (!$this->transaction) {
+        if (! $this->transaction) {
             throw new Exception(
                 'No active transaction.'
             );
@@ -175,7 +174,7 @@ final class Connection
 
     public function rollback(): void
     {
-        if (!$this->transaction) {
+        if (! $this->transaction) {
             return;
         }
 
