@@ -124,7 +124,7 @@ extension=sqlcipher.so
 Install SecureLite using Composer:
 
 ```bash
-composer require sushil/securelite
+composer require sushilk/securelite
 ```
 
 ### Configuration
